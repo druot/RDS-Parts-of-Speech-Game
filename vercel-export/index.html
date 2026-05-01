@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grammar Dirt Bike Dash</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="game-shell">
+      <section id="titleScreen" class="title-screen">
+        <div class="title-hero">
+          <p class="eyebrow">4th Grade Grammar Vocabulary</p>
+          <h1>Dirt Bike Dash</h1>
+          <div class="title-bike-wrap" aria-hidden="true">
+            <div class="bike title-bike">
+              <div class="dust-trail"></div>
+              <div class="rider">
+                <span class="helmet"></span>
+                <span class="body"></span>
+                <span class="arm"></span>
+                <span class="leg"></span>
+              </div>
+              <div class="rear-fender"></div>
+              <div class="front-fender"></div>
+              <div class="number-plate"></div>
+              <div class="engine"></div>
+              <div class="fork"></div>
+              <div class="exhaust"></div>
+              <div class="frame"></div>
+              <div class="seat"></div>
+              <div class="handlebar"></div>
+              <div class="wheel front"></div>
+              <div class="wheel rear"></div>
+            </div>
+          </div>
+          <button id="playButton" type="button">Play</button>
+        </div>
+        <div class="title-leaderboard">
+          <p class="eyebrow">Top 5 Scores</p>
+          <ol id="titleLeaderboardList" class="leaderboard-list"></ol>
+        </div>
+      </section>
+
+      <div id="gameContent" hidden>
+      <section class="topbar" aria-label="Game status">
+        <div>
+          <p class="eyebrow">4th Grade Grammar Vocabulary</p>
+          <h1>Dirt Bike Dash</h1>
+        </div>
+        <div class="status-grid">
+          <div class="status-card">
+            <span>Mode</span>
+            <strong id="modeLabel">Grammar Race</strong>
+          </div>
+          <div class="status-card">
+            <span>Total Score</span>
+            <strong id="scoreLabel">0</strong>
+          </div>
+          <div class="status-card">
+            <span>Game Timer</span>
+            <strong id="timerLabel">5:00</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="track-panel" aria-label="Race track">
+        <div class="skyline" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="track">
+          <div class="finish-line" aria-hidden="true">
+            <span>FINISH</span>
+          </div>
+          <div class="distance-marker start">START</div>
+          <div class="distance-marker mid">HALF</div>
+          <div id="bike" class="bike" aria-label="Dirt bike">
+            <div class="dust-trail" aria-hidden="true"></div>
+            <div class="rider">
+              <span class="helmet"></span>
+              <span class="body"></span>
+              <span class="arm"></span>
+              <span class="leg"></span>
+            </div>
+            <div class="rear-fender"></div>
+            <div class="front-fender"></div>
+            <div class="number-plate"></div>
+            <div class="engine"></div>
+            <div class="fork"></div>
+            <div class="exhaust"></div>
+            <div class="frame"></div>
+            <div class="seat"></div>
+            <div class="handlebar"></div>
+            <div class="wheel front"></div>
+            <div class="wheel rear"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="play-area">
+        <div id="wordMode" class="word-mode">
+          <div class="prompt-row">
+            <div>
+              <p class="eyebrow">Find the Part of Speech</p>
+              <h2 id="roundPrompt">Choose the noun, verb, or adjective to move the dirt bike.</h2>
+            </div>
+            <div class="progress-meter" aria-label="Questions complete">
+              <span id="wordProgressText">0 / 10</span>
+              <div class="meter"><div id="wordMeter"></div></div>
+            </div>
+          </div>
+          <div id="definitionCard" class="definition-card" aria-live="polite"></div>
+          <div id="message" class="message" role="status">Read the part of speech, then pick the matching word.</div>
+          <div id="wordGrid" class="word-grid" aria-label="Grammar vocabulary choices"></div>
+        </div>
+
+        <div id="driveMode" class="drive-mode" hidden>
+          <div class="drive-hud">
+            <div>
+              <p class="eyebrow">Free Ride</p>
+              <h2>Drive the dirt bike</h2>
+            </div>
+            <button id="endRideButton" type="button">End Ride</button>
+          </div>
+          <canvas id="driveCanvas" width="960" height="420" aria-label="Dirt bike driving game"></canvas>
+          <div class="controls">
+            <span>Steer lanes: Up/Down or W/S</span>
+            <span>Gas/Brake: Right/Left or D/A</span>
+            <span>Boost: Space</span>
+            <span>Collect KCS tokens</span>
+            <span>Hit yellow ramps to clear barriers</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="leaderboard-panel" aria-label="Leaderboard">
+        <div class="leaderboard-header">
+          <div>
+            <p class="eyebrow">Leaderboard</p>
+            <h2>Top Scores</h2>
+          </div>
+          <button id="resetGameButton" type="button">New Game</button>
+        </div>
+        <ol id="leaderboardList" class="leaderboard-list"></ol>
+      </section>
+
+      <section class="upgrade-panel" aria-label="Bike upgrades">
+        <div class="upgrade-header">
+          <div>
+            <p class="eyebrow">Bike Shop</p>
+            <h2>Trade KCS Tokens for Colors</h2>
+          </div>
+          <strong id="kcsBalanceLabel" class="token-balance">KCS: 0</strong>
+        </div>
+        <div id="colorShop" class="color-shop" aria-label="Dirt bike color upgrades"></div>
+      </section>
+      </div>
+    </main>
+
+    <div id="gameOverModal" class="modal-backdrop" hidden>
+      <div class="score-modal" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle">
+        <p class="eyebrow">Time's Up</p>
+        <h2 id="gameOverTitle">Add your score</h2>
+        <p id="finalScoreText" class="final-score">Score: 0 pts</p>
+        <label for="playerNameInput">Name or initials</label>
+        <input id="playerNameInput" type="text" maxlength="12" autocomplete="off" value="Player">
+        <button id="saveScoreButton" type="button">Save Score</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
